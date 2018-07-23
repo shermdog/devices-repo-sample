@@ -1,2 +1,36 @@
 ---
 message: "This node is using common data"
+
+lookup_options:
+  profile::ntp_server::servers:
+    strategy: deep
+
+profile::banner::motd: 'Managed by Puppet - common.yaml'
+
+profile::device_manager::defaults:
+  type: cisco_ios
+  username: admin
+  password: admin
+  enable_password: admin
+
+profile::ntp_server::servers:
+  1.2.3.4:
+    prefer: true
+    ensure: present
+  5.6.7.8:
+    prefer: false
+    ensure: present
+
+profile::network_vlan::vlans:
+  '10':
+    vlan_name: Default-VLAN10
+    shutdown: false
+    ensure: present
+  '20':
+    vlan_name: Default-VLAN20
+    shutdown: false
+    ensure: present
+  '30':
+    vlan_name: Default-VLAN30
+    shutdown: false
+    ensure: present
