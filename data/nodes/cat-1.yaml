@@ -1,0 +1,21 @@
+---
+profile::ntp_server::servers:
+  45.33.48.4:
+    prefer: false
+    ensure: present
+  74.82.59.150:
+    prefer: false
+    ensure: present
+profile::network_vlan::vlans:
+  '15':
+    vlan_name: Test-VLAN15
+    shutdown: false
+    ensure: present
+  '25':
+    vlan_name: Test-VLAN25
+    shutdown: false
+    ensure: present
+  '35':
+    vlan_name: Test-VLAN35
+    shutdown: false
+    ensure: present
