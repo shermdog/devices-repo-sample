@@ -1,12 +1,12 @@
 ---
-profile::ntp_server::servers:
+network_example::cisco_ios::ntp_server::servers:
   45.33.48.4:
     prefer: false
     ensure: present
   74.82.59.150:
     prefer: false
     ensure: present
-profile::network_vlan::vlans:
+network_example::cisco_ios::network_vlan::vlans:
   '15':
     vlan_name: Test-VLAN15
     shutdown: false

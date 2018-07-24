@@ -1,6 +1,0 @@
----
-profile::device_manager::devices:
-  cat-1:
-    address: 192.168.198.60
-    type: cisco_ios
-    proxy: puppet

@@ -1,37 +1,21 @@
 class profile::device_manager (
-  Hash $defaults = lookup('profile::device_manager::defaults'),
-  Hash $devices = lookup('profile::device_manager::devices'),
+  Hash $devices,
+  # Optional default values
+  Hash $defaults = {},
 ) {
 
   $devices.each |$device, $parameters| {
     # Only manage devices that are configured for this node
     if $parameters[proxy] == $trusted['certname'] {
-      # Look for node specific values, otherwise find default
-      $type = $parameters['type'] ? {
-        /(.*)/  => "${0}",
-        default => $defaults['type'],
-      }
-      $username = $parameters['username'] ? {
-        /(.*)/  => "${0}",
-        default => $defaults['username'],
-      }
-      $password = $parameters['password'] ? {
-        /(.*)/  => "${0}",
-        default => $defaults['password'],
-      }
-      $enable_password = $parameters['enable_password'] ? {
-        /(.*)/  => "${0}",
-        default => $defaults['enable_password'],
-      }
-
       # Here is the actual resource
       device_manager { $device:
-        type        => $type,
+        # Look for node specific values, otherwise find default
+        type        => devices_repo_sample::string_or_default('type', $parameters, $defaults),
         credentials => {
           address         => $parameters[address],
-          username        => $username,
-          password        => $password,
-          enable_password => $enable_password,
+          username        => devices_repo_sample::string_or_default('username', $parameters, $defaults),
+          password        => devices_repo_sample::string_or_default('password', $parameters, $defaults),
+          enable_password => devices_repo_sample::string_or_default('enable_password', $parameters, $defaults),
         },
       }
     }
